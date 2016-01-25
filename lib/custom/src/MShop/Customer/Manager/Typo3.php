@@ -431,12 +431,15 @@ class Typo3
 			$stmt->bind( 22, $billingAddress->getCountryId() );
 			$stmt->bind( 23, implode( ',', $item->getGroups() ) );
 
+			$system_folder_users_id = 2;
 			if( $id !== null ) {
 				$stmt->bind( 24, $id, \Aimeos\MW\DB\Statement\Base::PARAM_INT );
 				$item->setId( $id );
 			} else {
 				$stmt->bind( 24, time(), \Aimeos\MW\DB\Statement\Base::PARAM_INT ); // Creation time
 				$stmt->bind( 25, $this->pid, \Aimeos\MW\DB\Statement\Base::PARAM_INT ); // TYPO3 PID value
+				print 'this->_pid: ' . $this->_pid;
+				$stmt->bind( 25, $system_folder_users_id, \Aimeos\MW\DB\Statement\Base::PARAM_INT ); // TYPO3 PID value Override
 			}
 
 			$stmt->execute()->finish();
